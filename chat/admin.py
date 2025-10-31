@@ -29,4 +29,17 @@ class UserAdmin(BaseUserAdmin):
         ),
     ]
 
+@admin.register(ChatGroup)
+class ChatGroupAdmin(admin.ModelAdmin):
+    list_display = ("name","creator","create")
+    raw_id_fields = ("creator",)
 
+@admin.register(Member)
+class MemberAdmin(admin.ModelAdmin):
+    list_display = ("user","chat","date_joined")
+    raw_id_fields = ("chat", "user")
+
+@admin.register(Message)
+class MessageAdmin(admin.ModelAdmin):
+    list_display = ("user","chat","text","create")
+    raw_id_fields = ("chat","user")

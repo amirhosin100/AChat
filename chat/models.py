@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import BaseUserManager,AbstractBaseUser,PermissionsMixin
 from django.utils import timezone
 from django_jalali.db import models as jmodels
+
+import random
 # Create your models here.
 
 class UserManager(BaseUserManager):
@@ -53,3 +55,41 @@ class User(AbstractBaseUser,PermissionsMixin):
     class Meta:
         verbose_name = "کاربر"
         verbose_name_plural = "کاربران"
+
+def set_unique(length=15):
+    characters = "abcdefghijklmnopqrstuvwxyz"
+    code = random.choices(characters,k=length)
+    if ChatGroup.objects.filter(unique_code=code).exists() :
+        set_unique(length)
+    return "".join(code)
+
+class ChatGroup(models.Model):
+    creator = models.ForeignKey(User,models.CASCADE,"my_groups")
+    name = models.CharField("نام",max_length=50)
+    unique_code = models.CharField(max_length=15,default=set_unique,unique=True)
+    create = jmodels.jDateTimeField(verbose_name="تاریخ ایجاد",auto_now=True)
+
+    class Meta :
+        ordering = [
+            "-create"
+        ]
+        indexes = [
+            models.Index(fields=["-create"])
+        ]
+        verbose_name = "گروه"
+        verbose_name_plural = "گروه ها"
+
+    def __str__(self):
+        return self.name
+
+class Member(models.Model):
+    user = models.ForeignKey(User,models.CASCADE,verbose_name="کاربر")
+    chat = models.ForeignKey(ChatGroup,models.CASCADE,"members",verbose_name="گروه")
+    date_joined = jmodels.jDateTimeField("تاریخ ورود",auto_now=True)
+
+
+class Message(models.Model):
+    user = models.ForeignKey(User,models.CASCADE,verbose_name="کاربر")
+    chat = models.ForeignKey(ChatGroup,models.CASCADE,"messages","گروه")
+    text = models.TextField(max_length=1000,verbose_name="متن")
+    create = jmodels.jDateTimeField("تاریخ ارسال",default=jmodels.timezone.now)
