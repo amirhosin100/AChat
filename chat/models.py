@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import BaseUserManager,AbstractBaseUser,PermissionsMixin
 from django.utils import timezone
+from django_jalali.db import models as jmodels
 # Create your models here.
 
 class UserManager(BaseUserManager):
@@ -31,10 +32,12 @@ class User(AbstractBaseUser,PermissionsMixin):
     first_name = models.CharField(max_length=50,verbose_name="نام")
     last_name = models.CharField(max_length=50,blank=True,verbose_name="نام خانوادگی")
 
-    date_of_birth = models.DateField(blank=True,null=True,verbose_name="تاریخ تولد")
+    date_of_birth = jmodels.jDateField(blank=True,null=True,verbose_name="تاریخ تولد")
     bio = models.TextField(max_length=500,blank=True,null=True,verbose_name="بیوگرافی")
 
-    date_joined = models.DateTimeField(default=timezone.now,verbose_name="تاریخ ثبت نام")
+    date_joined = jmodels.jDateTimeField(default=timezone.now,verbose_name="تاریخ ثبت نام")
+
+    last_login = jmodels.jDateTimeField("آخرین ورود",blank=True, null=True)
 
     is_active = models.BooleanField(default=True,verbose_name="فعال بودن")
     is_staff = models.BooleanField(default=False,verbose_name="کارمند بودن")
