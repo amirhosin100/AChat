@@ -1,0 +1,128 @@
+
+.container {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+h1 {
+    text-align: center;
+    color: var(--primary-color);
+    margin-bottom: 30px;
+}
+
+/* لیست گروه‌ها */
+.group-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* فاصله بین آیتم‌ها */
+}
+
+/* هر آیتم گروه */
+.group-item {
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: var(--card-shadow);
+    padding: 20px 25px;
+    /* transition: transform 0.3s ease, box-shadow 0.3s ease; */ /* <- افکت transition حذف شد */
+}
+
+/* افکت هاور حذف شد
+.group-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+*/
+
+/* نام گروه */
+.group-name {
+    font-size: 1.25rem; /* 20px */
+    font-weight: 700; /* وزن ضخیم‌تر */
+    color: #111;
+    margin-bottom: 8px;
+}
+
+/* آخرین پیام */
+.last-message {
+    font-size: 0.9rem; /* 14.4px */
+    color: #555;
+    /* مدیریت متن طولانی */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.group-creation-card {
+    margin: 40px auto;
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 20px; /* گوشه‌های گرد */
+    box-shadow: var(--card-shadow);
+    width: 100%;
+    max-width: 400px; /* اندازه مناسب برای کارت */
+    transition: transform 0.3s ease;
+}
+
+
+/* عنوان */
+.group-creation-card h1 {
+    color: #1f2937;
+    font-size: 1.8rem;
+    margin-bottom: 30px;
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 10px;
+    font-weight: 800;
+}
+
+/* برچسب (Label) */
+.group-creation-card label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 600;
+    color: #4b5563;
+    font-size: 0.95rem;
+}
+
+/* فیلد ورودی (Input) */
+.group-creation-card input[type="text"] {
+    width: 100%;
+    padding: 12px 15px;
+    margin-bottom: 25px;
+    border: 1px solid #d1d5db;
+    border-radius: 12px;
+    box-sizing: border-box;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    font-family: var(--vazir-font); /* اطمینان از اعمال فونت */
+    text-align: right;
+}
+
+.group-creation-card input[type="text"]:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(67, 56, 202, 0.2);
+    outline: none;
+}
+
+/* دکمه ساخت گروه */
+.create-button {
+    width: 100%;
+    padding: 14px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.create-button:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(67, 56, 202, 0.3);
+}
+
+.create-button:active {
+    transform: translateY(0);
+}

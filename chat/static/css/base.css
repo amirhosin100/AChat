@@ -1,0 +1,29 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-color: #4338CA; /* رنگ نیلی تیره اصلی برای دکمه و فوکوس */
+    --primary-hover: #3730A3; /* رنگ نیلی تیره برای هاور دکمه */
+    --background-color: #e8ecf4; /* پس‌زمینه آرام و روشن */
+    --card-shadow: 0 15px 35px rgba(0, 0, 0, 0.15); /* سایه عمیق برای برجسته شدن کارت */
+}
+
+@font-face {
+    font-family: "vazir";
+    src: url("../fonts/Vazirmatn-Regular.woff2") ;
+}
+
+body {
+    font-family: "vazir", "Tahoma";
+}
+
+a, button, textarea {
+    font-family: inherit;
+}
+
+a {
+    text-decoration: none;
+}

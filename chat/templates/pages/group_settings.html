@@ -1,0 +1,82 @@
+{% extends "base/base.html" %}
+{% block title %}{{ group.name }}{% endblock %}
+{% load static %}
+{% load jformat %}
+{% load tags %}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/group_settings.css' %}">
+{% endblock %}
+{% block content %}
+
+    <div class="settings-container">
+        <h1>⚙️ تنظیمات گروه</h1>
+        <div class="card">
+            <p id="status"></p>
+            <!-- بخش تنظیم نام گروه -->
+            <div class="setting-item">
+                <label for="group-name">نام گروه:</label>
+                <div class="name-edit-wrapper">
+                    <!-- فیلد نام گروه: کاربر می‌تواند روی آن کلیک کند و ویرایش کند -->
+                    <input type="text" id="group-name" value="{{ group.name }}" class="input-field">
+
+
+                    <button class="save-btn btn" id="send_name">ذخیره نام</button>
+                </div>
+            </div>
+
+            <hr>
+
+            <!-- بخش تنظیم لینک ثبت‌نام گروه -->
+            <div class="setting-item">
+                <label for="invite-link">لینک ثبت‌نام گروه:</label>
+                <div class="link-display-wrapper">
+                    <!-- فیلد نمایش لینک (فقط خواندنی) -->
+                    <input type="text" id="invite-link" value="{{ request.get_host }}/chat/group/{{ group.unique_code }}"
+                           class="input-field link-field" readonly>
+
+                    <button class="copy-btn btn">کپی لینک</button>
+                </div>
+                <!-- دکمه تغییر لینک (که حتما باید زیر فیلد نمایش قرار گیرد) -->
+                <button id="change-link-btn" class="primary-btn btn full-width-btn">تولید لینک ثبت‌نام جدید</button>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}
+{% block script %}
+	<script>
+        const status = document.querySelector("#status") ;
+        document.getElementById("send_name").addEventListener("click",async function (){
+            const name = document.querySelector("#group-name").value ;
+            const response = await fetch("{% url "chat:change_group_name" %}",{
+                method : "POST" ,
+                headers : {
+                    "content-type" :"application/json",
+                    "X-CSRFToken" : "{{ csrf_token }}"
+                },
+                body :JSON.stringify({"unique_code":"{{ group.unique_code }}","name":name})
+            });
+            const result = response.json();
+            if (response.ok){
+                status.innerText = "نام گروه با موفقیت تغییر کرد";
+            }
+        });
+        document.querySelector("#change-link-btn").addEventListener("click",async function(){
+            const invite_link = document.querySelector("#invite-link") ;
+            const response = await fetch("{% url "chat:change_group_code" %}",{
+                method : "POST" ,
+                headers : {
+                    "content-type" : "application/json",
+                    "X-CSRFToken" : "{{ csrf_token }}"
+                },
+                body : JSON.stringify({"unique_code":invite_link.value.split("/").pop()})
+            });
+            const result = await response.json();
+            if (response.ok){
+                invite_link.value = result.url ;
+                status.innerText = "کد گروه با موفقیت تغییر کرد";
+            }
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,113 @@
+body{
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+    align-items: center;
+}
+
+.login-container {
+    background-color: #ffffff;
+    padding: 40px 50px; /* افزایش پدینگ */
+    border-radius: 16px; /* گردی بیشتر لبه‌ها */
+    box-shadow: var(--card-shadow);
+    width: 100%;
+    max-width: 420px; /* عرض مناسب‌تر */
+    text-align: center;
+    border: 1px solid #d4dae8;
+}
+
+
+.login-container h1 {
+    color: var(--primary-color);
+    margin-bottom: 30px;
+    font-size: 2em; /* بزرگتر شدن عنوان */
+    font-weight: 900; /* وزن ضخیم‌تر */
+}
+
+/* استایل گروه ورودی */
+.input-group {
+    margin-bottom: 25px;
+    text-align: right;
+}
+
+.login-container label {
+    display: block;
+    margin-bottom: 6px;
+    color: #4a5568;
+    font-size: 1em;
+    font-weight: 700;
+}
+
+.login-container input[type="tel"],
+.login-container input[type="password"] {
+    font-family: vazir;
+    width: 100%;
+    padding: 15px;
+    border: 2px solid #e2e8f0;
+    background-color: #f8fafc;
+    border-radius: 10px;
+    box-sizing: border-box;
+    font-size: 1.1em;
+    transition: all 0.3s ease;
+    text-align: left;
+    direction: ltr; /* جهت نوشتار برای اعداد و رمز عبور */
+}
+
+.login-container input[type="tel"]:focus,
+.login-container input[type="password"]:focus {
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(67, 56, 202, 0.2);
+    background-color: #ffffff;
+}
+
+/* استایل دکمه ورود - گرادیان و سایه جذاب */
+.login-button {
+    width: 100%;
+    padding: 15px;
+    /* گرادیان با رنگ‌های تم اصلی */
+    background: linear-gradient(135deg, #4f46e5 0%, #4338CA 100%);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 1.2em;
+    font-weight: 800;
+    margin-top: 15px;
+    box-shadow: 0 8px 20px rgba(67, 56, 202, 0.4);
+    transition: all 0.3s ease;
+}
+
+.login-button:hover {
+    background: linear-gradient(135deg, #4338CA 0%, #4f46e5 100%);
+    box-shadow: 0 10px 25px rgba(67, 56, 202, 0.5);
+    transform: translateY(-2px);
+}
+
+/* استایل پیام‌های جانبی */
+.extra-links {
+    margin-top: 30px;
+    font-size: 0.9em;
+}
+
+.extra-links a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.2s;
+}
+
+.extra-links a:hover {
+    color: var(--primary-hover);
+    text-decoration: underline;
+}
+
+/* واکنش‌گرایی موبایل */
+@media (max-width: 480px) {
+    .login-container {
+        padding: 30px 25px;
+        max-width: 100%;
+        border-radius: 0;
+        box-shadow: none;
+    }
+}

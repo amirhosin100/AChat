@@ -1,0 +1,11 @@
+{% extends "base/base.html" %}
+{% block title %}صفحه اصلی{% endblock %}
+{% load static %}
+{% load jformat %}
+{% load tags %}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/group_detail.css' %}">
+{% endblock %}
+{% block content %}
+    <a href="{% url "chat:my_groups" %}">لیست گروه های شما</a>
+{% endblock %}

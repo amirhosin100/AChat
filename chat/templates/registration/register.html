@@ -1,0 +1,101 @@
+{% extends "base/base.html" %}
+{% block title %}ثبت نام{% endblock %}
+{% load static %}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/register.css' %}">
+{% endblock %}
+{% block content %}
+    <div class="form-container">
+
+        <h1 class="form-title">ثبت نام کاربر جدید</h1>
+
+        <form id="registrationForm" method="post">
+            {% csrf_token %}
+
+            <!-- ردیف دوتایی برای نام و نام خانوادگی -->
+            <div class="form-row">
+
+                <!-- فیلد نام -->
+                <div class="form-group">
+                    <label for="firstName">نام</label>
+                    <input
+                            type="text"
+                            id="firstName"
+                            name="first_name"
+                            required
+                            placeholder="نام کوچک شما"
+                            class="form-input"
+                    >
+                </div>
+
+                <!-- فیلد نام خانوادگی -->
+                <div class="form-group">
+                    <label for="lastName">نام خانوادگی</label>
+                    <input
+                            type="text"
+                            id="lastName"
+                            name="last_name"
+                            required
+                            placeholder="نام خانوادگی شما"
+                            class="form-input"
+                    >
+                </div>
+            </div>
+            <!-- پایان ردیف دوتایی -->
+
+            <!-- فیلد شماره تلفن (تک ستونی) -->
+            <div class="form-group">
+                <label for="phoneNumber">شماره تلفن</label>
+                <input
+                        type="text"
+                        id="phoneNumber"
+                        name="phone"
+                        required
+                        pattern="09[0-9]{9}"
+                        title="فرمت صحیح: 09XXXXXXXXX (۱۱ رقمی)"
+                        placeholder="مثال: 09123456789"
+                        class="form-input"
+                        maxlength="11"
+                >
+                <p id="phoneError" class="error-message">شماره تلفن باید ۱۱ رقم و با ۰۹ شروع شود.</p>
+            </div>
+
+            <!-- فیلد رمز عبور (تک ستونی) -->
+            <div class="form-group">
+                <label for="password">رمز عبور (پسورد)</label>
+                <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        required
+                        minlength="8"
+                        placeholder="حداقل ۸ کاراکتر"
+                        class="form-input"
+                >
+                <p id="passwordError" class="error-message">رمز عبور باید حداقل ۸ کاراکتر باشد.</p>
+            </div>
+
+            <!-- فیلد تکرار رمز عبور (تک ستونی) -->
+            <div class="form-group">
+                <label for="confirmPassword">تکرار رمز عبور</label>
+                <input
+                        type="password"
+                        id="confirmPassword"
+                        name="password2"
+                        required
+                        placeholder="مجدداً رمز عبور را وارد کنید"
+                        class="form-input"
+                >
+            </div>
+
+            <!-- دکمه ثبت نام -->
+            <button
+                    type="submit"
+                    class="form-button"
+            >
+                ثبت نام در سامانه
+            </button>
+        </form>
+
+    </div>
+{% endblock %}

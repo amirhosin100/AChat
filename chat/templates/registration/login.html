@@ -1,0 +1,57 @@
+{% extends "base/base.html" %}
+{% block title %}ورود{% endblock %}
+{% load static %}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+{% endblock %}
+{% block content %}
+
+    <div class="login-container">
+        <h1>ورود به حساب کاربری </h1>
+
+        <!-- فرم -->
+        <form  method="post" >
+            {% csrf_token %}
+            <!-- فیلد شماره تلفن -->
+            <div class="input-group">
+                {{ form.username.errors }}
+                <label for="phone">شماره تلفن:</label>
+                <input
+                        type="tel"
+                        id="phone"
+                        name="username"
+                        placeholder="مثال: 0912xxxxxxx"
+                        required
+                >
+            </div>
+
+            <!-- فیلد رمز عبور -->
+            <div class="input-group">
+                {{ form.password.errors }}
+                <label for="password">رمز عبور:</label>
+                <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="رمز عبور خود را وارد کنید"
+                        required
+                >
+            </div>
+
+            <!-- دکمه ورود -->
+            <button type="submit" class="login-button">
+                ورود
+            </button>
+
+        </form>
+
+        <!-- لینک‌های جانبی -->
+        <div class="extra-links">
+            <a href="#">رمز عبور را فراموش کرده‌ام</a>
+            <span style="color: #cbd5e1; margin: 0 10px;">|</span>
+            <a href="{% url "register" %}">ثبت نام</a>
+        </div>
+    </div>
+
+
+{% endblock %}

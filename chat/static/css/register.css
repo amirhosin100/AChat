@@ -1,0 +1,119 @@
+:root {
+    --card-bg: #ffffff;
+    --input-bg: #f9f9f9;
+    --text-color: #333333;
+    --label-color: #1f2937;
+    --border-color: #d1d5db;
+    --error-color: #ef4444;
+}
+
+.form-container {
+    width: 100%;
+    max-width: 500px;
+    background-color: var(--card-bg);
+    padding: 2.5rem 2rem;
+    border-radius: 0.75rem;
+    /* استفاده از متغیر جدید سایه */
+    box-shadow: var(--card-shadow);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin: 20px auto;
+}
+
+/* تیتر فرم */
+.form-title {
+    font-size: 1.875rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: var(--label-color);
+}
+
+/* گروه فیلد (شامل لیبل و ورودی) */
+.form-group {
+    margin-bottom: 1.25rem;
+}
+
+.form-group label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    color: var(--label-color);
+}
+
+/* چیدمان دو ستونی */
+.form-row {
+    display: flex;
+    gap: 2.5rem;
+    margin-bottom: 0;
+}
+
+.form-row .form-group {
+    flex: 1;
+    margin-bottom: 1.25rem;
+}
+
+/* استایل ورودی‌ها */
+.form-input {
+    width: 100%;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    background-color: var(--input-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    /* استفاده از متغیر جدید فونت */
+    font-family: var(--vazir-font);
+}
+
+.form-input:focus {
+    outline: none;
+    /* استفاده از متغیر رنگ اصلی */
+    border-color: var(--primary-color);
+    /* استفاده از رنگ اصلی برای سایه فوکوس */
+    box-shadow: 0 0 0 3px rgba(67, 56, 202, 0.3);
+}
+
+.form-input.border-red-500 {
+    border-color: var(--error-color);
+}
+
+/* دکمه ثبت نام */
+.form-button {
+    width: 100%;
+    padding: 0.75rem 1.5rem;
+    margin-top: 0.5rem;
+    /* استفاده از متغیر رنگ اصلی */
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: 700;
+    border-radius: 0.5rem;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out, box-shadow 0.3s;
+    /* استفاده از متغیر جدید فونت */
+    font-family: var(--vazir-font);
+}
+
+.form-button:hover {
+    /* استفاده از متغیر رنگ هاور */
+    background-color: var(--primary-hover);
+    transform: scale(1.01);
+    /* استفاده از رنگ اصلی برای سایه هاور */
+    box-shadow: 0 0 0 4px rgba(67, 56, 202, 0.4);
+}
+
+/* ریسپانسیو بودن: در نمایشگرهای کوچک، ردیف‌ها به حالت ستونی برمی‌گردند */
+@media (max-width: 639px) {
+    .form-row {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .form-row .form-group {
+        margin-bottom: 1rem;
+    }
+}
+

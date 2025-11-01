@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import BaseUserManager,AbstractBaseUser,PermissionsMixin
 from django.utils import timezone
 from django_jalali.db import models as jmodels
+from django.urls import reverse
 
 import random
 # Create your models here.
@@ -52,6 +53,15 @@ class User(AbstractBaseUser,PermissionsMixin):
     def __str__(self):
         return self.phone
 
+    def get_full_name(self):
+        if self.first_name and self.last_name :
+            return f"{self.first_name} {self.last_name}"
+        elif self.first_name :
+            return self.first_name
+        elif self.last_name :
+            return self.last_name
+        return  ""
+
     class Meta:
         verbose_name = "کاربر"
         verbose_name_plural = "کاربران"
@@ -82,8 +92,11 @@ class ChatGroup(models.Model):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return reverse("chat:group_detail",args=[self.id])
+
 class Member(models.Model):
-    user = models.ForeignKey(User,models.CASCADE,verbose_name="کاربر")
+    user = models.ForeignKey(User,models.CASCADE,verbose_name="کاربر",related_name="joined_groups")
     chat = models.ForeignKey(ChatGroup,models.CASCADE,"members",verbose_name="گروه")
     date_joined = jmodels.jDateTimeField("تاریخ ورود",auto_now=True)
 
@@ -93,3 +106,11 @@ class Message(models.Model):
     chat = models.ForeignKey(ChatGroup,models.CASCADE,"messages","گروه")
     text = models.TextField(max_length=1000,verbose_name="متن")
     create = jmodels.jDateTimeField("تاریخ ارسال",default=jmodels.timezone.now)
+
+    class Meta :
+        ordering = [
+            "create"
+        ]
+        indexes = [
+            models.Index(fields=["create"])
+        ]

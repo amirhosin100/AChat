@@ -1,0 +1,55 @@
+{% extends "base/base.html" %}
+{% block title %}{{ group.name }}{% endblock %}
+{% load static %}
+{% load jformat %}
+{% load tags %}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/group_detail.css' %}">
+{% endblock %}
+{% block content %}
+
+    <div class="chat-container">
+        <!-- عنوان گروه -->
+        <header class="chat-header">
+            <h3>{{ group.name }}</h3>
+        </header>
+
+        <!-- بخش نمایش پیام‌ها -->
+        <main class="chat-messages">
+
+            {% for message in group.messages.all %}
+                {% if message.user == user %}
+                    <div class="message mine">
+                        <div class="message-bubble">
+                            <div class="message-info">
+                                <span class="sender-name">شما ({{ user.get_full_name }})</span>
+                                <span class="message-time">{{ message.create|jformat:"%H:%M"|fa }}</span>
+                            </div>
+                            <p class="message-text">{{ message.text }}</p>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="message other">
+                        <div class="message-bubble">
+                            <div class="message-info">
+                                <span class="sender-name">{{ message.user.get_full_name }}</span>
+                                <span class="message-time">{{ message.create|jformat:"%H:%M"|fa }}</span>
+                            </div>
+                            <p class="message-text">{{ message.text }}</p>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+
+        </main>
+
+        <!-- بخش ارسال پیام -->
+        <footer class="chat-input-area">
+            <input type="text" class="message-input" placeholder="پیام خود را بنویسید...">
+            <button class="send-button">
+                ارسال
+            </button>
+        </footer>
+    </div>
+
+{% endblock %}

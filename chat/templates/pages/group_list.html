@@ -1,0 +1,64 @@
+{% extends "base/base.html" %}
+{% block title %}لیست گروه ها{% endblock %}
+{% load static %}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/group_list.css' %}">
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <h1>گروه‌های من</h1>
+
+        <div class="group-list">
+            {% for group in groups %}
+                <div class="group-item">
+
+                    <div><a href="{{ group.chat.get_absolute_url }}" class="group-name">{{ group.chat.name }}</a></div>
+                    {% if group.chat.messages.last.text %}
+                        <p class="last-message">{{ group.chat.messages.last.user.first_name }}: {{ group.chat.messages.last.text }}</p>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+        <div class="group-creation-card">
+            <h1>ساخت گروه جدید</h1>
+            <form>
+                <div class="form-control">
+                    <label for="group-name">نام گروه:</label>
+                    <input type="text" id="group-name" name="group-name" placeholder="مثلاً: تیم توسعه وب" required>
+                </div>
+
+                <!-- دکمه ساخت گروه -->
+                <button type="button" class="create-button" id="create-group">
+                    ساخت گروه
+                </button>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}
+{% block script %}
+    <script>
+        document.querySelector("#create-group").addEventListener("click", async function () {
+            const name = document.querySelector("#group-name").value;
+            const list = document.getElementsByClassName("group-list")[0];
+            const response = await fetch("{% url "chat:make_group" %}", {
+                method: "POST",
+                headers: {
+                    "content-type": "application/json",
+                    "X-CSRFToken": "{{ csrf_token }}"
+                },
+                body: JSON.stringify({"name": name})
+            })
+            const result = await response.json();
+            if (response.ok) {
+                const code = `
+                <div class="group-item">
+                    <div><a href="${result.url}" class="group-name">${name}</a></div>
+                </div>
+            `;
+                list.insertAdjacentHTML("beforeend", code);
+
+            }
+        });
+    </script>
+{% endblock %}

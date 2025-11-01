@@ -1,0 +1,208 @@
+:root {
+    /* رنگ‌های فرعی برای ظاهر بهتر */
+    --text-color: #1F2937;
+    --border-color: #D1D5DB;
+    --success-color: #10B981;
+    --danger-color: #EF4444;
+}
+
+
+
+.settings-container {
+    width: 100%;
+    max-width: 500px;
+    padding-top: 50px; /* برای فاصله از بالای صفحه در دسکتاپ */
+    margin: 50px auto;
+}
+
+h1 {
+    color: var(--primary-color);
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 1.8rem;
+    border-bottom: 3px solid var(--primary-color);
+    padding-bottom: 10px;
+}
+
+/* استایل کارت تنظیمات */
+.card {
+    background-color: #FFFFFF;
+    border-radius: 12px;
+    box-shadow: var(--card-shadow);
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+/* استایل هر آیتم تنظیمات */
+.setting-item {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+label {
+    font-weight: 700;
+    color: var(--text-color);
+    font-size: 1rem;
+}
+
+/* استایل فیلدهای ورودی */
+.input-field {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-family: var(--vazir-font);
+    box-sizing: border-box;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+/* حالت فوکوس برای فیلد نام (شبیه سازی حالت ویرایش) */
+.input-field:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(67, 56, 202, 0.2); /* سایه ملایم نیلی */
+}
+
+/* استایل فیلد نام گروه و دکمه‌های کنار آن */
+.name-edit-wrapper {
+    display: flex;
+    gap: 10px;
+}
+
+.name-edit-wrapper .input-field {
+    flex-grow: 1; /* اجازه رشد فیلد نام */
+}
+
+/* استایل دکمه‌ها */
+.btn {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: background-color 0.3s, transform 0.1s;
+    text-align: center;
+    white-space: nowrap; /* از شکستن متن جلوگیری می‌کند */
+    font-family: var(--vazir-font); /* اعمال فونت وزیر به دکمه‌ها */
+}
+
+.primary-btn {
+    background-color: var(--primary-color);
+    color: #FFFFFF;
+}
+
+.primary-btn:hover {
+    background-color: var(--primary-hover);
+}
+
+.primary-btn:active {
+    transform: scale(0.98);
+}
+
+.edit-btn {
+    background-color: #F3F4F6;
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+}
+
+.edit-btn:hover {
+    background-color: #E5E7EB;
+}
+
+.save-btn {
+    background-color: var(--success-color);
+    color: #FFFFFF;
+}
+
+.save-btn:hover {
+    background-color: #059669;
+}
+
+/* برای دکمه ذخیره و ویرایش که در حالت عادی مخفی هستند (فقط جنبه ظاهری در این طرح دارند) */
+/* به دلیل عدم استفاده از JS، ما از دکمه‌های مجزا استفاده می‌کنیم که منطق آن با CSS خالص پیاده‌سازی نشده است */
+/* در این حالت، دکمه 'ذخیره' را همیشه نشان می‌دهیم تا کاربر اقدام به ذخیره کند. */
+.name-edit-wrapper button {
+    /* تنظیم اندازه دکمه‌ها برای همخوانی با فیلد */
+    align-self: stretch;
+}
+
+/* تنظیمات لینک ثبت‌نام */
+.link-display-wrapper {
+    display: flex;
+    gap: 10px;
+}
+
+.link-field {
+    color: var(--primary-color);
+    background-color: #F9FAFB;
+    font-size: 0.85rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding: 12px 15px;
+    direction: ltr;
+}
+
+.copy-btn {
+    background-color: #4B5563;
+    color: #FFFFFF;
+}
+
+.copy-btn:hover {
+    background-color: #374151;
+}
+
+/* دکمه تغییر لینک در زیر فیلد */
+.full-width-btn {
+    width: 100%;
+    margin-top: 5px; /* کمی فاصله از فیلد لینک */
+}
+
+hr {
+    border: 0;
+    height: 1px;
+    background: #E5E7EB;
+    margin: 10px 0;
+}
+
+/* واکنش‌گرایی برای موبایل */
+@media (max-width: 600px) {
+    body {
+        padding: 10px;
+        align-items: stretch;
+    }
+
+    .settings-container {
+        padding-top: 20px;
+        max-width: 100%;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    .card {
+        padding: 20px 15px;
+    }
+
+    .name-edit-wrapper {
+        flex-direction: column; /* دکمه‌های کنار فیلد نام زیر هم قرار می‌گیرند */
+    }
+
+    .name-edit-wrapper .btn {
+        width: 100%;
+    }
+
+    .link-display-wrapper {
+        flex-direction: column; /* دکمه کپی زیر لینک قرار می‌گیرد */
+    }
+
+    .link-field {
+        width: 100%;
+    }
+}
