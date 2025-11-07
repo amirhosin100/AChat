@@ -23,24 +23,32 @@ def my_groups(request):
 @login_required
 def group_detail(request,id):
     group = get_object_or_404(ChatGroup,id=id)
-    context = {
-        "group" :group
-    }
+    if  request.user.joined_groups.filter(chat=group).exists() :
+        context = {
+            "group" :group
+        }
 
-    return render(request,"pages/group_detail.html",context)
+        return render(request,"pages/group_detail.html",context)
+    else:
+        return redirect("chat:my_groups")
+
 @login_required
 def delete_group(request,id):
     return HttpResponse("delete_group")
 
 @login_required
 def group_settings(request,id):
-    group = get_object_or_404(ChatGroup,id=id)
-    context = {
-        "group":group
-    }
-    return render(request,"pages/group_settings.html",context)
 
-@login_required
+    group = get_object_or_404(ChatGroup,id=id)
+    if request.user == group.creator :
+        context = {
+            "group":group
+        }
+        return render(request,"pages/group_settings.html",context)
+    else:
+        return redirect("chat:my_groups")
+
+
 def register(request):
     if request.method == "POST" :
         form = RegisterForm(request.POST)

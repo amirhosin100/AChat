@@ -97,7 +97,7 @@ class ChatGroup(models.Model):
 
 class Member(models.Model):
     user = models.ForeignKey(User,models.CASCADE,verbose_name="کاربر",related_name="joined_groups")
-    chat = models.ForeignKey(ChatGroup,models.CASCADE,"members",verbose_name="گروه")
+    chat = models.ForeignKey(ChatGroup,models.CASCADE,related_name="members",verbose_name="گروه")
     date_joined = jmodels.jDateTimeField("تاریخ ورود",auto_now=True)
 
 
@@ -105,7 +105,7 @@ class Message(models.Model):
     user = models.ForeignKey(User,models.CASCADE,verbose_name="کاربر")
     chat = models.ForeignKey(ChatGroup,models.CASCADE,"messages","گروه")
     text = models.TextField(max_length=1000,verbose_name="متن")
-    create = jmodels.jDateTimeField("تاریخ ارسال",default=jmodels.timezone.now)
+    create = jmodels.jDateTimeField("تاریخ ارسال",auto_now_add=True)
 
     class Meta :
         ordering = [
