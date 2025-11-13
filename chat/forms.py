@@ -1,5 +1,5 @@
 from django.contrib.auth.forms import UserChangeForm,UserCreationForm
-from .models import User
+from .models import User,Member
 from django import forms
 
 class MyUserCreationForm(UserCreationForm):
@@ -41,3 +41,8 @@ class RegisterForm(forms.ModelForm):
             raise forms.ValidationError("پسورد ها با هم مطابقت ندارند")
 
         return password2
+
+class JoinChatForm(forms.ModelForm):
+    class Meta :
+        model = Member
+        fields = ()

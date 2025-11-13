@@ -93,7 +93,7 @@ def change_group_code(request):
             group.save()
             context = {
                 "status": "ok",
-                "url" : f"{request.get_host()}/chat/group/{group.id}",
+                "url" : f"{request.get_host()}/chat/group/{group.unique_code}/join",
             }
             return JsonResponse(context, status=201)
 
@@ -114,3 +114,28 @@ def make_group(request) :
         return JsonResponse(context,status=201)
     else:
         return JsonResponse({"status":"groups must have a group name"},status=400)
+
+@login_required
+def join_group(request,unique_code):
+    group = get_object_or_404(ChatGroup,unique_code=unique_code)
+    if not request.user.joined_groups.filter(chat=group).exists() :
+        if request.method == "POST":
+            form = JoinChatForm(request.POST)
+            if form.is_valid():
+                member = form.save(commit=False)
+                member.user = request.user
+                member.chat = group
+                member.save()
+                return redirect("chat:group_detail",group.id)
+
+        else:
+            form = JoinChatForm()
+
+        context = {
+            "form":form,
+            "group":group
+        }
+        return render(request,"pages/join_group.html",context)
+    else:
+        return redirect("chat:group_detail",group.id)
+

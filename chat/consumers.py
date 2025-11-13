@@ -32,7 +32,6 @@ class ChatConsumer(AsyncWebsocketConsumer):
         message = Message.objects.create(user=user,text=text,chat_id=chat_id)
         date = to_persian_numbers(jformat.jformat(message.create,"%H:%M"))
         name = message.user.get_full_name()
-        phone = message.user.phone
         return {
             "date":date,
             "name":name,

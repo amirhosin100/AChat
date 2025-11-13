@@ -31,7 +31,7 @@
                 <label for="invite-link">لینک ثبت‌نام گروه:</label>
                 <div class="link-display-wrapper">
                     <!-- فیلد نمایش لینک (فقط خواندنی) -->
-                    <input type="text" id="invite-link" value="{{ request.get_host }}/chat/group/{{ group.unique_code }}"
+                    <input type="text" id="invite-link" value="{{ request.get_host }}/chat/group/{{ group.unique_code }}/join"
                            class="input-field link-field" readonly>
 
                     <button class="copy-btn btn">کپی لینک</button>
@@ -70,7 +70,7 @@
                     "content-type" : "application/json",
                     "X-CSRFToken" : "{{ csrf_token }}"
                 },
-                body : JSON.stringify({"unique_code":invite_link.value.split("/").pop()})
+                body : JSON.stringify({"unique_code":invite_link.value.split("/")[3]})
             });
             const result = await response.json();
             if (response.ok){

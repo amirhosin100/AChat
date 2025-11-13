@@ -1,0 +1,16 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% block title %}
+	عضو شدن در گروه {{ group.name }}
+{% endblock %}
+{% block head %}
+	<link rel="stylesheet" href="">
+{% endblock %}
+{% block content %}
+    <h1>{{ group.name }}</h1>
+    <p>آیا می خواهید عضو این گروه شوید؟</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">عضو شدن</button>
+    </form>
+{% endblock %}
